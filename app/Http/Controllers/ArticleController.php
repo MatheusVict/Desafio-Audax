@@ -241,5 +241,7 @@ class ArticleController extends Controller
         }
 
         $article->delete();
+
+        return response()->json([], 204);
     }
 }
