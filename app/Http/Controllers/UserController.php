@@ -163,7 +163,10 @@ class UserController extends Controller
                 'Message' => 'Usuário já existente, você não pode mudar para um nome existente'
             ]], 400);
         }
-        $userFind->update($request->all());
+
+        $passHash = password_hash($request->password, PASSWORD_DEFAULT);
+
+        $userFind->update(['user_name' => $request->user_name, 'password' => $passHash]);
 
         return $userFind;
 
