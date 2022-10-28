@@ -120,7 +120,7 @@ class UserController extends Controller
         if(!$userFind) {
             return response()->json(['Error' => [
                 'Message' => 'Usuário não encontrado'
-            ]], 400);
+            ]], 404);
         }
 
         $passUser = $request->password;
@@ -183,6 +183,12 @@ class UserController extends Controller
         if(!$userFind) {
             return response()->json(['Error' => [
                 'Message' => 'Usuário não encontrado'
+            ]], 404);
+        }
+
+        if($userFind->articles) {
+            return response()->json(['Error' => [
+                'Message' => 'Usuários com articles não pode ser deletados'
             ]], 400);
         }
 

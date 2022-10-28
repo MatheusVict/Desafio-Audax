@@ -17,3 +17,5 @@ use App\Http\Controllers\UserController;
 
 
 Route::apiResource('/users', App\Http\Controllers\UserController::class);
+
+Route::apiResource('/article', App\Http\Controllers\ArticleController::class);
