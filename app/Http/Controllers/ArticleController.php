@@ -209,25 +209,19 @@ class ArticleController extends Controller
             ]], 400);
         }
 
-        $articleExist = Article::where('title', $title)->get()->first();
+        $articleExists = Article::where('title', $title)->get()->first();
 
-        if($articleExist) {
+        if($articleExists) {
             return response()->json(['Error' => [
                 'Message' => 'Esse titulo já existente'
             ]], 400);
         }
 
-        $articleNew = new Article();
 
-        $articleNew->title = $title;
-        $articleNew->resume = $resume;
-        $articleNew->text = $text;
-        $articleNew->slug = $slug;
-        $articleNew->user_id = $articleExist->user_id;
 
-        $articleNew->save();
+        $articleExist->update(['title' => $title, 'resume' => $resume, 'text' => $slug, 'user_id' => $articleExist->user_id]);
 
-        return $articleNew;
+        return $articleExist;
     }
 
     /**
