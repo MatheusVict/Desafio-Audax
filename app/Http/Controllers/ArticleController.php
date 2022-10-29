@@ -219,7 +219,7 @@ class ArticleController extends Controller
 
 
 
-        $articleExist->update(['title' => $title, 'resume' => $resume, 'text' => $text, 'slug' => $slug,'user_id' => $articleExist->user_id]);
+        $articleExist->update(['title' => $title, 'resume' => $resume, 'text' => $text, 'slug' => $slug ,'user_id' => $articleExist->user_id]);
 
         return $articleExist;
     }
