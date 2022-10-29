@@ -1,66 +1,311 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://media-exp1.licdn.com/dms/image/C4D0BAQGc_MFtsIf_sQ/company-logo_200_200/0/1649279758550?e=2147483647&v=beta&t=gg0dwDYnAyOP4JAdDQsa0aGFfe22iilRzNpxMhubNpU" width="200" alt="Laravel Logo"></a></p>
+# Desafio Audax
+### Um desafio de CRUD e relacionamento de tabelas usando Laravel, possuindo features solicitadas:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- [x] Validações nos campos,
+- [x] Tratamento de erros,
+- [x] uuid na versão 4,
+- [x] Hash de senha,
+- [x] Horario salvo em ISO8601,
+- [x] Segurança de duplicidade de dados
 
-## Sobre o projeto
+## Documentação
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Primeiros passos:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Crie um arquivo **.env** usando com base o **.env.exemple**, configure de acordo com seu banco
+- Rode no terminal o comando:
+ ```ruby
+ php artisan migrate
+ ```
+ - Rode o comando:
+ ```ruby
+ php artisan db:seed
+ ```
+ para popular o banco(é opcional);
+ **OBS: por isso esses campos não foram considerados unicos no banco e apenas por validação dos controllers, mas caso não use as seeds pode ser alterado nas migrations os campos que deseja que o banco considere unicos e rodar novamente a migrate**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Rode o comando:
+```ruby
+php artisan serve
+```
+E o servidor estrá no ar na porta 8000
+## Rotas
 
-## Learning Laravel
+### Usuários
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**OBS: Todas as rotas tem um prefixo de /api**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Tipo get, resgata todos os usuários paginados(10 por página).
+#### para acessar as demais página adiciona ?page=Número da página.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```ruby
+/api/users
+```
+Retorna um array de usuários:
 
-## Laravel Sponsors
+```ruby
+{
+    "id": 1,
+    "uuid": "cdd4a06c-55b6-11ed-a834-988389d531f9",
+    "user_name": "dolorum",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "registered_at": "2022-10-28 19:44:10"
+},
+{
+    "id": 2,
+    "uuid": "ce42a95b-55b6-11ed-a834-988389d531f9",
+    "user_name": "testess dadadefsfsnmdxsvfffsefsfs",
+    "created_at": "2022-10-28T01:01:24.000000Z",
+    "updated_at": "2022-10-28T22:26:29.000000Z",
+    "registered_at": "2022-10-28 19:44:10"
+},
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### Tipo get, Um usuário específico
 
-### Premium Partners
+```ruby
+/api/users/:uuid
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Retorna um usuário com base no uuid passada na url:
 
-## Contributing
+```ruby
+{
+    "id": 1,
+    "uuid": "cdd4a06c-55b6-11ed-a834-988389d531f9",
+    "user_name": "dolorum",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "registered_at": "2022-10-28 19:44:10"
+},
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Tipo post, Cria um usuário:
+```ruby
+/api/users
+```
 
-## Code of Conduct
+#### Deve ser passado no body os seguintes valores e chaves:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```ruby
+{
+"user_name": "Nome de mínimo 3 caracteres",
+"password": "Senha De no mínimo 8 caracteres"
+}
+```
+**OBS: As rotas de criação são as unicas que não retorna o uuid do usuário**
 
-## Security Vulnerabilities
+Retorna seu usuário criado:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```ruby
+{
+"user_name": "Seu user",
+"updated_at": "2022-10-28T22:57:18.000000Z",
+"created_at": "2022-10-28T22:57:18.000000Z",
+"registered_at": "2022-10-28 19:44:10",
+"id": 41
+}
+```
+#### Tipo put, atualiza o usuário:
 
-## License
+```ruby
+/api/users/:uuid
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Deve ser passado no body os seguintes valores e chaves:
+
+```ruby
+{
+"user_name": "Nome de mínimo 3 caracteres",
+"password": "Senha De no mínimo 8 caracteres"
+}
+```
+Retorna seu usuário atualizado:
+
+```ruby
+{
+	"id": 2,
+	"uuid": "ce42a95b-55b6-11ed-a834-988389d531f9",
+	"user_name": "testess dadadefsfsnmdxsvfffdsfssefsfs",
+	"created_at": "2022-10-28T01:01:24.000000Z",
+	"updated_at": "2022-10-28T22:57:32.000000Z",
+	"registered_at": "2022-10-28 19:44:10"
+}
+```
+
+#### Tipo delete, deleta o usuário:
+
+```ruby
+/api/user/:uuid
+```
+Retorna um status 204
+
+### Articles
+
+#### Tipo get, Resgata todos os article:
+
+```ruby
+/api/article
+```
+Retorna um array com todos os artigos e seus usuários
+
+```ruby
+{
+    "id": 1,
+    "uuid": "cddf34e9-55b6-11ed-a834-988389d531f9",
+    "title": "fuga",
+    "resume": "debitis",
+    "text": "Natus tempora eum dolores dolorum inventore.",
+    "slug": "dicta",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "user_id": 1,
+    "registered_at": "2022-10-28 19:41:29",
+    "user": {
+        "id": 1,
+        "uuid": "cdd4a06c-55b6-11ed-a834-988389d531f9",
+        "user_name": "dolorum",
+        "created_at": "2022-10-28T01:01:23.000000Z",
+        "updated_at": "2022-10-28T01:01:23.000000Z",
+        "registered_at": "2022-10-28 19:44:10"
+    }
+},
+{
+    "id": 3,
+    "uuid": "cdf33e84-55b6-11ed-a834-988389d531f9",
+    "title": "velit",
+    "resume": "cum",
+    "text": "Minus ut sed atque nihil est.",
+    "slug": "optio",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "user_id": 1,
+    "registered_at": "2022-10-28 19:41:29",
+    "user": {
+        "id": 1,
+        "uuid": "cdd4a06c-55b6-11ed-a834-988389d531f9",
+        "user_name": "dolorum",
+        "created_at": "2022-10-28T01:01:23.000000Z",
+        "updated_at": "2022-10-28T01:01:23.000000Z",
+        "registered_at": "2022-10-28 19:44:10"
+    }
+},
+```
+
+#### Tipo get, Resgata um article passado no parâmetro:
+
+```ruby
+`/api/article/:uuid
+```
+
+Retorna um article e seu usuário
+
+```ruby
+{
+    "id": 3,
+    "uuid": "cdf33e84-55b6-11ed-a834-988389d531f9",
+    "title": "velit",
+    "resume": "cum",
+    "text": "Minus ut sed atque nihil est.",
+    "slug": "optio",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "user_id": 1,
+    "registered_at": "2022-10-28 19:41:29",
+    "user": {
+        "id": 1,
+        "uuid": "cdd4a06c-55b6-11ed-a834-988389d531f9",
+        "user_name": "dolorum",
+        "created_at": "2022-10-28T01:01:23.000000Z",
+        "updated_at": "2022-10-28T01:01:23.000000Z",
+        "registered_at": "2022-10-28 19:44:10"
+    }
+}
+```
+
+#### Tipo post, Cria um article:
+
+```ruby
+/api/article
+```
+
+#### Deve ser passado os seguintes valores:
+
+```ruby
+{
+	"title": "Um titulo de minímo de 30 carateres e no máximo 70 caracteres",
+	"resume": "Um resumo de mínimo 50 caracteres e no máximo 100 caracteres",
+	"text": "Um texto de mínimo de 200 caracteres",
+	"user_id": "Uuid do usuário que você quer adicionar ao artigo"
+}
+```
+
+Retorna a article criada
+
+```ruby
+{
+     "id": 3,
+    "uuid": "cdf33e84-55b6-11ed-a834-988389d531f9",
+    "title": "Lain, gurren laggan e kill la kill melhores animes da terra , sim ou claro?",
+    "resume": "Melhores animes e não tem oque pensar além disso",
+    "text": "Miojinho bom",
+    "slug": "lain-gurren-laggan-e-kill-la-kill-melhores-animes-da-terra-sim-ou-claro?",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "user_id": 1,
+    "registered_at": "2022-10-28 19:41:29",
+}
+```
+
+#### Tipo put, resgata o article passado de parâmentro:
+
+```ruby
+/api/article/:uuid
+```
+
+```ruby
+{
+	"title": "Um titulo de minímo de 30 carateres e no máximo 70 caracteres",
+	"resume": "Um resumo de mínimo 50 caracteres e no máximo 100 caracteres",
+	"text": "Um texto de mínimo de 200 caracteres",
+	"user_id": "Uuid do usuário que você quer adicionar ao artigo"
+}
+```
+
+Retorna a article atualizada
+
+```ruby
+{
+     "id": 3,
+    "uuid": "cdf33e84-55b6-11ed-a834-988389d531f9",
+    "title": "Glory To Mankind",
+    "resume": "It's a curse?",
+    "text": "Nier Automata melhor jogo do mundo",
+    "slug": "glory-to-mankind",
+    "created_at": "2022-10-28T01:01:23.000000Z",
+    "updated_at": "2022-10-28T01:01:23.000000Z",
+    "user_id": 1,
+    "registered_at": "2022-10-28 19:41:29",
+}
+```
+
+#### Tipo delete, deleta o article de acordo com o uuid:
+
+```ruby
+/api/article/:uuid
+```
+
+Retorna um status 204
+
+# Qualquer duvida entre em contato:
+
+<a href="https://www.linkedin.com/in/matheus-victor-henrique-270640236/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+
+```ruby
+{
+   "author":"Matheus",
+   "Framework": "Laravel",
+   "Project": "Desafio Audax"
+}
+```
