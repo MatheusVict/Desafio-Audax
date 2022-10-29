@@ -137,7 +137,7 @@ Retorna seu usuário atualizado:
 #### Tipo delete, deleta o usuário:
 
 ```ruby
-/api/user/:uuid
+/api/users/:uuid
 ```
 Retorna um status 204
 
