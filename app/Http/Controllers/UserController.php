@@ -189,7 +189,7 @@ class UserController extends Controller
             ]], 404);
         }
 
-        if($userFind->articles) {
+        if(count($userFind->articles) > 0) {
             return response()->json(['Error' => [
                 'Message' => 'Usuários com articles não pode ser deletados'
             ]], 400);
